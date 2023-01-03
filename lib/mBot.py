@@ -11,8 +11,9 @@ import hid
 
 class mSerial():
     ser = None
+
     def __init__(self):
-        sleep(0)
+        pass
 
     def start(self, port):
         self.ser = serial.Serial(port,115200)
@@ -55,7 +56,7 @@ class mSerial():
         
 class mHID():
     def __init__(self):
-        sleep(0)
+        pass
         
     def start(self):
         self.manager = Manager()
@@ -67,7 +68,7 @@ class mHID():
         self.bufferIndex = 0
     
     def enumerate(self):
-        sleep(0)
+        pass
 
     def writePackage(self,package):
         buf = []
@@ -233,16 +234,19 @@ class mBot():
     def readFloat(self, position):
         v = [self.buffer[position], self.buffer[position+1],self.buffer[position+2],self.buffer[position+3]]
         return struct.unpack('<f', struct.pack('4B', *v))[0]
+    
     def readShort(self, position):
         v = [self.buffer[position], self.buffer[position+1]]
         return struct.unpack('<h', struct.pack('2B', *v))[0]
+    
     def readString(self, position):
         l = self.buffer[position]
         position+=1
         s = ""
-        for i in Range(l):
+        for i in range(l):
             s += self.buffer[position+i].charAt(0)
         return s
+    
     def readDouble(self, position):
         v = [self.buffer[position], self.buffer[position+1],self.buffer[position+2],self.buffer[position+3]]
         return struct.unpack('<f', struct.pack('4B', *v))[0]
